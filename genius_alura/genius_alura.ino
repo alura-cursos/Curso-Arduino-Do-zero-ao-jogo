@@ -1,45 +1,20 @@
-#define LED_VERDE 2
-#define LED_AMARELO 3
 #define LED_VERMELHO 4
-#define LED_AZUL 5
+#define BOTAO_VERMELHO 10
 
-#define UM_SEGUNDO 1000
-#define MEIO_SEGUNDO 500
+void setup() {
+  Serial.begin(9600);
+  pinMide(LED_VERMELHO,OUTPUT);
 
-#define TAMANHO_SEQUENCIA 4
-int sequenciaLuzes[TAMANHO_SEQUENCIA];
+  pinMode(BOTAO_VERMELHO,INPUT_PULLUP);
 
-
-void setup(){
-    Serial.begin(9600);
-    iniciaPortas();
-    iniciaJogo();
+  digitalWrite(LED_VERMELHO,HIGH);
+  delay(1000);
+  digitalWrite(LED_VERMELHO,LOW);
 }
 
-void iniciaJogo(){
-  sequenciaLuzes[0] = LED_AZUL;
-  sequenciaLuzes[1] = LED_VERDE;
-  sequenciaLuzes[2] = LED_VERMELHO;
-  sequenciaLuzes[3] = LED_AMARELO;
+void loop() {
+  int estadoBotao = digitalRead(BOTAO_VERMELHO);
+  Seriail.println(estadoBotao);
+  delay(500);
 }
 
-void iniciaPortas(){
-    pinMode(LED_VERDE, OUTPUT);
-    pinMode(LED_AMARELO, OUTPUT);
-    pinMode(LED_VERMELHO, OUTPUT);
-    pinMode(LED_AZUL, OUTPUT);
-}
-
-
-void loop(){
-    for(int indice = 0; indice < TAMANHO_SEQUENCIA; indice++){
-        piscaLed(sequenciaLuzes[indice]);
-    }
-}
-
-void piscaLed(int portaLed){
-    digitalWrite(portaLed, HIGH);
-    delay(UM_SEGUNDO);
-    digitalWrite(portaLed, LOW);
-    delay(MEIO_SEGUNDO);    
-}

@@ -22,11 +22,16 @@ void setup(){
     iniciaJogo();
 }
 
-void iniciaJogo(){
-  sequenciaLuzes[0] = LED_AZUL;
-  sequenciaLuzes[1] = LED_VERDE;
-  sequenciaLuzes[2] = LED_VERMELHO;
-  sequenciaLuzes[3] = LED_AMARELO;
+void iniciaJogo() {
+  int potenciometro = analogRead(0);
+  Serial.println(potenciometro);
+  for(int indice = 0; indice < TAMANHO_SEQUENCIA; indice ++){
+    sequenciaLuzes[indice] = sorteiaCor();
+  }
+}
+
+int sorteiaCor() {
+    return random(LED_VERDE, LED_AZUL + 1); // 2-5 (6)
 }
 
 void iniciaPortas(){
